@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let a = Math.floor(Math.random()*100)+1;
+        let prev_guess = [];
+        let guess = 1;
+        const startGame = () => {
+        $('#submit').prop('disabled',false);
+        $('#newGame').hide();
+        a = Math.floor(Math.random()*100)+1;
+        prev_guess = [];
+        guess = 1;
+    }
+    </script>
+    <script>
+        $(document).ready(() =>{
+            startGame;
+            $('#submit').click(() => {
+                var num = $('#num').val();
+                if(!num){
+                    alert("Please enter Value");
+                    return 0;
+                }
+                prev_guess.push(num);
+                $('#searchedNumbers').append(`${num} `);
+                $('#num').val('');
+                guess++;
+                if(num == a){
+                    $('#searchedNumbers').after('<p>You Won the Game</p>');
+                    $('#newGame').show();
+                    $('#submit').prop('disabled',true);
+                }
+                if(guess == 10){
+                    $('#searchedNumbers').after('<p>You Lost the Game</p>');
+                    $('#newGame').show();
+                    $('#submit').prop('disabled',true);
+                }
+            });
+            $('#newGame').click(startGame);
+        });
+    </script>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <p>We Have Selected a random number between 1 and 100.</p>
+    <p>See if you can guess in 10 or less turns</p>
+    <label for="number">Enter a Number</label>
+    <input type="text" id="num"></input>
+    <button id="submit">Submit Number</button>
+    <p id="searchedNumbers">Numbers Searched: </p>
+    <button id="newGame" hidden>Start New Game</button>
+</body>
+</html>
